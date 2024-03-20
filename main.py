@@ -98,7 +98,6 @@ def SetList():
     frameSelect = customtkinter.CTkScrollableFrame(master=frame, height=350, width=250, label_text="List")
     frameSelect.place(x=600, y=100)
     for i, list in enumerate(list_contact):
-        new_button = customtkinter.CTkButton(master=frameSelect, text=f"{i + 1}: {list[0]}", command=ButtonClicked)
         new_button = customtkinter.CTkButton(master=frameSelect, text=list[0], command=lambda id=list[2]: ButtonClicked(id))
         new_button.pack(pady=10)
     

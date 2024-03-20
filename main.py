@@ -1,6 +1,5 @@
 import customtkinter
 import sqlite3
-from dataclasses import dataclass, field
 import uuid
 from tkinter import messagebox
 
@@ -17,15 +16,6 @@ except sqlite3.OperationalError as error:
         id VARCHAR(32) )"""
     cursor.execute(sql_command)
 
-def generate_id() -> str:
-    return uuid.uuid4().hex
-
-@dataclass
-class Client:
-    name: str
-    description: str
-    id: str = field(default_factory=generate_id)
-
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
 
@@ -39,8 +29,7 @@ Id = customtkinter.StringVar()
 
 def AddContact():
     if Name.get() != "" and Description.get() != "":   
-        client = Client(Name.get(), Description.get())
-        cursor.execute("INSERT INTO contacts VALUES (?, ?, ?)", (client.name, client.description, client.id))
+        cursor.execute("INSERT INTO contacts VALUES (?, ?, ?)", (Name.get(), Description.get(), uuid.uuid4().hex))
         connection.commit()
 
         SetList()
